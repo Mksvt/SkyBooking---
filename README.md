@@ -80,7 +80,7 @@ INSERT INTO airlines (name, iata_code, icao_code, country) VALUES
 ('British Airways', 'BA', 'BAW', 'Великобританія');
 
 -- Додавання рейсів
-INSERT INTO flights (airline_id, flight_number, departure_airport_id, arrival_airport_id, 
+INSERT INTO flights (airline_id, flight_number, departure_airport_id, arrival_airport_id,
                     departure_time, arrival_time, base_price, status) VALUES
 (1, '101', 1, 2, '2025-12-10 08:00:00', '2025-12-10 09:30:00', 2500.00, 'scheduled'),
 (1, '102', 1, 3, '2025-12-10 10:00:00', '2025-12-10 13:00:00', 4500.00, 'scheduled'),

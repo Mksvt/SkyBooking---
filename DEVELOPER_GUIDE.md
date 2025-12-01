@@ -3,12 +3,14 @@
 ## 🏗️ Архітектура проекту
 
 ### Технологічний стек
+
 - **Backend:** PHP 7.4+
 - **Database:** PostgreSQL 12+
 - **Frontend:** HTML5, CSS3
 - **No JavaScript:** Вся логіка на стороні сервера
 
 ### Паттерни проектування
+
 - **MVC-подібна структура:** Розділення логіки, представлення та даних
 - **Include pattern:** Переиспользование header/footer
 - **Session management:** Збереження стану користувача
@@ -87,18 +89,18 @@ $_SESSION = [
     'customer_id' => 1,                    // ID користувача
     'customer_name' => 'Тарас Шевченко',   // Ім'я
     'customer_email' => 'test@...',        // Email
-    
+
     'search' => [                          // Параметри пошуку
         'departure_id' => 1,
         'arrival_id' => 4,
         'date' => '2025-12-10',
         'passengers' => 2
     ],
-    
+
     'selected_flight_id' => 5,             // Обраний рейс
-    
+
     'selected_seats' => ['12A', '12B'],    // Обрані місця
-    
+
     'passengers_data' => [                 // Дані пасажирів
         [
             'first_name' => 'Тарас',
@@ -109,9 +111,9 @@ $_SESSION = [
         ],
         // ...
     ],
-    
+
     'current_booking_id' => 10,            // Поточне бронювання
-    
+
     'redirect_after_login' => '/public/seats.php'  // Куди повернутись
 ];
 ```
@@ -123,23 +125,27 @@ $_SESSION = [
 ### Реалізовані заходи:
 
 1. **SQL Injection Protection**
+
    ```php
    $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ?");
    $stmt->execute([$email]);
    ```
 
 2. **Password Hashing**
+
    ```php
    $hash = password_hash($password, PASSWORD_DEFAULT);
    password_verify($password, $hash);
    ```
 
 3. **XSS Protection**
+
    ```php
    echo htmlspecialchars($user_input, ENT_QUOTES, 'UTF-8');
    ```
 
 4. **CSRF Protection**
+
    - Перевірка `$_SERVER['REQUEST_METHOD']`
    - Валідація на стороні сервера
 
@@ -164,17 +170,18 @@ $_SESSION = [
 ## 🎨 CSS Структура
 
 ### CSS Variables (Custom Properties)
+
 ```css
 :root {
-    --primary-color: #2563eb;
-    --secondary-color: #1e40af;
-    --success-color: #10b981;
-    --danger-color: #ef4444;
-    --warning-color: #f59e0b;
-    --light-bg: #f8fafc;
-    --dark-text: #1e293b;
-    --gray-text: #64748b;
-    --border-color: #e2e8f0;
+  --primary-color: #2563eb;
+  --secondary-color: #1e40af;
+  --success-color: #10b981;
+  --danger-color: #ef4444;
+  --warning-color: #f59e0b;
+  --light-bg: #f8fafc;
+  --dark-text: #1e293b;
+  --gray-text: #64748b;
+  --border-color: #e2e8f0;
 }
 ```
 
@@ -242,6 +249,7 @@ logout(): void
 ### Приклад: Додати скасування бронювання
 
 1. **Додати кнопку в my-bookings.php:**
+
    ```php
    <form method="POST" action="/public/cancel-booking.php">
        <input type="hidden" name="booking_id" value="<?= $booking['booking_id'] ?>">
@@ -250,23 +258,24 @@ logout(): void
    ```
 
 2. **Створити cancel-booking.php:**
+
    ```php
    <?php
    require_once '../includes/config.php';
    requireLogin();
-   
+
    $booking_id = $_POST['booking_id'] ?? null;
-   
+
    // Перевірка власності
    $stmt = $pdo->prepare("SELECT * FROM bookings WHERE booking_id = ? AND customer_id = ?");
    $stmt->execute([$booking_id, $_SESSION['customer_id']]);
-   
+
    if ($stmt->fetch()) {
        // Оновити статус
        $pdo->prepare("UPDATE bookings SET status = 'cancelled' WHERE booking_id = ?")
            ->execute([$booking_id]);
    }
-   
+
    header('Location: /public/my-bookings.php');
    ?>
    ```
@@ -278,9 +287,11 @@ logout(): void
 ### Тестові сценарії:
 
 1. **Позитивний флоу:**
+
    - Пошук → Вибір → Авторизація → Місця → Пасажири → Бронювання → Оплата → Квиток
 
 2. **Негативні тести:**
+
    - Спроба доступу без авторизації
    - Вибір зайнятого місця
    - Помилкові дані пасажирів
@@ -299,11 +310,13 @@ logout(): void
 ### Performance:
 
 1. **Database:**
+
    - Індекси на частозапитувані поля
    - EXPLAIN для аналізу запитів
    - Connection pooling
 
 2. **PHP:**
+
    - OpCache для кешування
    - Мінімізація DB запитів
    - Lazy loading даних
@@ -324,7 +337,7 @@ logout(): void
 error_log("Error in payment: " . $e->getMessage());
 
 // Логування дій користувача
-file_put_contents('logs/user_actions.log', 
+file_put_contents('logs/user_actions.log',
     date('Y-m-d H:i:s') . " - User {$_SESSION['customer_id']} booked flight {$flight_id}\n",
     FILE_APPEND
 );

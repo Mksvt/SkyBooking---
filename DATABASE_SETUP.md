@@ -94,21 +94,25 @@ php -S localhost:8000
 ## Корисні команди PostgreSQL
 
 ### Перегляд всіх баз даних
+
 ```sql
 \l
 ```
 
 ### Перегляд таблиць
+
 ```sql
 \dt
 ```
 
 ### Перегляд структури таблиці
+
 ```sql
 \d table_name
 ```
 
 ### Перегляд даних
+
 ```sql
 SELECT * FROM airports;
 SELECT * FROM airlines;
@@ -116,16 +120,19 @@ SELECT * FROM flights;
 ```
 
 ### Видалення всіх даних (УВАГА!)
+
 ```sql
 TRUNCATE TABLE payments, tickets, bookings, passengers, customers, flights, airlines, airports RESTART IDENTITY CASCADE;
 ```
 
 ### Резервне копіювання БД
+
 ```bash
 pg_dump -U postgres aviation_booking > backup.sql
 ```
 
 ### Відновлення з резервної копії
+
 ```bash
 psql -U postgres aviation_booking < backup.sql
 ```
@@ -135,6 +142,7 @@ psql -U postgres aviation_booking < backup.sql
 ### Помилка: "could not connect to server"
 
 **Рішення:**
+
 - Переконайтеся, що PostgreSQL запущено
 - Перевірте, чи правильний порт (за замовчуванням 5432)
 - Перевірте налаштування `pg_hba.conf`
@@ -142,8 +150,10 @@ psql -U postgres aviation_booking < backup.sql
 ### Помилка: "password authentication failed"
 
 **Рішення:**
+
 - Перевірте правильність пароля в `config.php`
 - Спробуйте скинути пароль через:
+
 ```bash
 psql -U postgres
 ALTER USER postgres PASSWORD 'new_password';
@@ -152,11 +162,13 @@ ALTER USER postgres PASSWORD 'new_password';
 ### Помилка: "FATAL: database does not exist"
 
 **Рішення:**
+
 - Створіть базу даних за допомогою `CREATE DATABASE aviation_booking;`
 
 ### Помилка: "column does not exist"
 
 **Рішення:**
+
 - Переконайтеся, що виконали `schema.sql`
 - Можливо, потрібно видалити та створити таблиці заново
 
@@ -178,6 +190,7 @@ ALTER USER postgres PASSWORD 'new_password';
 ## Підтримка
 
 Якщо виникли проблеми з налаштуванням:
+
 1. Перевірте версію PostgreSQL (потрібна 12+)
 2. Перевірте версію PHP (потрібна 7.4+)
 3. Перевірте, чи встановлено розширення `pdo_pgsql` для PHP
