@@ -1,21 +1,22 @@
 <?php
-// Конфігурація підключення до бази даних
+// Конфігурація підключення до бази даних MySQL
 define('DB_HOST', 'localhost');
-define('DB_NAME', 'aviation_booking');
-define('DB_USER', 'aviation_user'); // Користувач з обмеженими правами
-define('DB_PASS', '');
+define('DB_NAME', 'skybooking_db');
+define('DB_USER', 'root');  // Користувач MySQL за замовчуванням в XAMPP
+define('DB_PASS', '');      // Пароль порожній за замовчуванням в XAMPP
+define('DB_CHARSET', 'utf8mb4');
 
-// Підключення до бази даних
+// Підключення до бази даних MySQL через PDO
 try {
+    $dsn = "mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=" . DB_CHARSET;
     $pdo = new PDO(
-        "pgsql:host=" . DB_HOST . ";dbname=" . DB_NAME,
+        $dsn,
         DB_USER,
         DB_PASS,
         [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-            PDO::ATTR_EMULATE_PREPARES => false,
-            PDO::ATTR_STRINGIFY_FETCHES => false
+            PDO::ATTR_EMULATE_PREPARES => false
         ]
     );
 } catch (PDOException $e) {
