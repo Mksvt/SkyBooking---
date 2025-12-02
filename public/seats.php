@@ -3,7 +3,7 @@ require_once '../includes/config.php';
 requireLogin();
 
 if (!isset($_SESSION['selected_flight_id']) || !isset($_SESSION['search'])) {
-    header('Location: /public/search.php');
+    header('Location: ' . BASE_URL . '/search.php');
     exit;
 }
 
@@ -30,7 +30,7 @@ $stmt->execute([$flight_id]);
 $flight = $stmt->fetch();
 
 if (!$flight) {
-    header('Location: /public/search.php');
+    header('Location: ' . BASE_URL . '/search.php');
     exit;
 }
 
@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['selected_seats'])) {
         $error = "Будь ласка, оберіть рівно $passengers_count місць(я).";
     } else {
         $_SESSION['selected_seats'] = $selected_seats;
-        header('Location: /public/passengers.php');
+        header('Location: ' . BASE_URL . '/passengers.php');
         exit;
     }
 }
@@ -228,7 +228,81 @@ require_once '../includes/header.php';
     </style>
 </noscript>
 
-<!-- Мінімальна функціональність через CSS та HTML форми -->
+<!-- JavaScript для вибору місць -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const maxSeats = <?php echo $passengers_count; ?>;
+    const continueBtn = document.getElementById('continueBtn');
+    const selectedCount = document.getElementById('selectedCount');
+    const seats = document.querySelectorAll('.seat:not(.occupied)');
+    
+    // Обробка кліку на місце
+    seats.forEach(seat => {
+        seat.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Знаходимо чекбокс (попередній елемент)
+            const label = this.parentElement;
+            const checkbox = label.querySelector('.seat-checkbox');
+            
+            if (!checkbox || checkbox.disabled) {
+                return;
+            }
+            
+            const currentCount = document.querySelectorAll('.seat-checkbox:checked').length;
+            
+            if (checkbox.checked) {
+                // Зняти вибір
+                checkbox.checked = false;
+                this.classList.remove('selected');
+            } else {
+                // Перевірка ліміту перед вибором
+                if (currentCount >= maxSeats) {
+                    alert('Ви вже обрали максимальну кількість місць (' + maxSeats + '). Спочатку зніміть вибір з іншого місця.');
+                    return;
+                }
+                // Вибрати місце
+                checkbox.checked = true;
+                this.classList.add('selected');
+            }
+            
+            updateSelectedCount();
+        });
+        
+        // Додаємо курсор pointer для візуальної вказівки
+        seat.style.cursor = 'pointer';
+    });
+    
+    // Оновлення лічильника та кнопки
+    function updateSelectedCount() {
+        const count = document.querySelectorAll('.seat-checkbox:checked').length;
+        selectedCount.textContent = count;
+        
+        if (count === maxSeats) {
+            continueBtn.disabled = false;
+            continueBtn.style.opacity = '1';
+            continueBtn.style.cursor = 'pointer';
+        } else {
+            continueBtn.disabled = true;
+            continueBtn.style.opacity = '0.5';
+            continueBtn.style.cursor = 'not-allowed';
+        }
+    }
+    
+    // Ініціалізація при завантаженні
+    updateSelectedCount();
+    
+    // Синхронізуємо візуальний стан з чекбоксами (на випадок попереднього вибору)
+    document.querySelectorAll('.seat-checkbox:checked').forEach(function(checkbox) {
+        const seat = checkbox.nextElementSibling;
+        if (seat) {
+            seat.classList.add('selected');
+        }
+    });
+});
+</script>
+
+<!-- Мінімальна функціональність через CSS -->
 <style>
     /* Автоматичне підсвічування обраних місць */
     input[type="checkbox"]:checked + .seat:not(.occupied) {

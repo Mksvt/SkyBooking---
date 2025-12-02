@@ -8,7 +8,7 @@ require_once '../includes/header.php';
     <div class="container">
         <h1>✈️ Бронюйте авіаквитки легко та швидко</h1>
         <p>Ваша подорож починається тут. Знайдіть найкращі рейси за найвигіднішими цінами</p>
-        <a href="/public/search.php" class="btn btn-primary">Знайти рейс</a>
+        <a href="<?php echo BASE_URL; ?>/search.php" class="btn btn-primary">Знайти рейс</a>
     </div>
 </section>
 
@@ -94,9 +94,9 @@ require_once '../includes/header.php';
         <p style="font-size: 1.2rem; margin-bottom: 2rem; color: var(--gray-text);">
             Приєднуйтесь до тисяч задоволених пасажирів, які обирають SkyBooking
         </p>
-        <a href="/public/search.php" class="btn btn-primary" style="margin-right: 1rem;">Знайти рейс</a>
+        <a href="<?php echo BASE_URL; ?>/search.php" class="btn btn-primary" style="margin-right: 1rem;">Знайти рейс</a>
         <?php if (!isLoggedIn()): ?>
-            <a href="/public/register.php" class="btn btn-secondary">Зареєструватись</a>
+            <a href="<?php echo BASE_URL; ?>/register.php" class="btn btn-secondary">Зареєструватись</a>
         <?php endif; ?>
     </div>
 </section>

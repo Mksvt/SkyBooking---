@@ -1,4 +1,7 @@
 <?php
+// Базовий URL проєкту
+define('BASE_URL', '/skybooking/public');
+
 // Конфігурація підключення до бази даних MySQL
 define('DB_HOST', 'localhost');
 define('DB_NAME', 'skybooking_db');
@@ -38,7 +41,7 @@ function isLoggedIn() {
 // Функція для перевірки авторизації та перенаправлення
 function requireLogin() {
     if (!isLoggedIn()) {
-        header('Location: /public/login.php');
+        header('Location: ' . BASE_URL . '/login.php');
         exit;
     }
 }
@@ -46,7 +49,7 @@ function requireLogin() {
 // Функція для виходу
 function logout() {
     session_destroy();
-    header('Location: /public/index.php');
+    header('Location: ' . BASE_URL . '/index.php');
     exit;
 }
 

@@ -60,7 +60,7 @@ $airports = $pdo->query("SELECT * FROM airports ORDER BY city, name")->fetchAll(
         <?php endif; ?>
         
         <div class="form-container">
-            <form method="GET" action="/public/flights.php" id="searchForm" novalidate>
+            <form method="GET" action="<?php echo BASE_URL; ?>/flights.php" id="searchForm" novalidate>
                 <div class="form-group">
                     <label for="departure">Аеропорт відправлення:</label>
                     <select name="departure" id="departure" class="form-control" required oninput="checkSearchFormValidity()">

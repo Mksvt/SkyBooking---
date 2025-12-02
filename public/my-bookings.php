@@ -38,9 +38,18 @@ require_once '../includes/header.php';
     <section class="section">
         <h1 class="section-title">Мої бронювання</h1>
         
+        <?php if (isset($_SESSION['error_message'])): ?>
+            <div class="alert alert-error">
+                <?php 
+                echo htmlspecialchars($_SESSION['error_message']); 
+                unset($_SESSION['error_message']);
+                ?>
+            </div>
+        <?php endif; ?>
+        
         <?php if (empty($bookings)): ?>
             <div class="alert alert-info">
-                У вас поки немає бронювань. <a href="/public/search.php" style="color: var(--primary-color); font-weight: 600;">Знайти рейс</a>
+                У вас поки немає бронювань. <a href="<?php echo BASE_URL; ?>/search.php" style="color: var(--primary-color); font-weight: 600;">Знайти рейс</a>
             </div>
         <?php else: ?>
             <div class="flights-list">
@@ -110,12 +119,12 @@ require_once '../includes/header.php';
                             </div>
                             
                             <?php if ($booking['status'] === 'confirmed'): ?>
-                                <a href="/public/ticket.php?booking_id=<?php echo $booking['booking_id']; ?>" 
+                                <a href="<?php echo BASE_URL; ?>/ticket.php?booking_id=<?php echo $booking['booking_id']; ?>" 
                                    class="btn btn-primary" style="margin-top: 1rem;">
                                     Переглянути квиток
                                 </a>
                             <?php elseif ($booking['status'] === 'pending'): ?>
-                                <a href="/public/payment.php?booking_id=<?php echo $booking['booking_id']; ?>" 
+                                <a href="<?php echo BASE_URL; ?>/payment.php?booking_id=<?php echo $booking['booking_id']; ?>" 
                                    class="btn btn-warning" style="margin-top: 1rem; background: var(--warning-color);">
                                     Оплатити
                                 </a>

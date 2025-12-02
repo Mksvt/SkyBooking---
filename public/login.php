@@ -2,7 +2,7 @@
 require_once '../includes/config.php';
 
 if (isLoggedIn()) {
-    header('Location: /public/index.php');
+    header('Location: ' . BASE_URL . '/index.php');
     exit;
 }
 
@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     unset($_SESSION['redirect_after_login']);
                     header("Location: $redirect");
                 } else {
-                    header('Location: /public/index.php');
+                    header('Location: ' . BASE_URL . '/index.php');
                 }
                 exit;
             } else {
@@ -110,7 +110,7 @@ require_once '../includes/header.php';
             </noscript>
             
             <p style="text-align: center; margin-top: 1.5rem; color: var(--gray-text);">
-                Немає акаунта? <a href="/public/register.php" style="color: var(--primary-color); font-weight: 600;">Зареєструватись</a>
+                Немає акаунта? <a href="<?php echo BASE_URL; ?>/register.php" style="color: var(--primary-color); font-weight: 600;">Зареєструватись</a>
             </p>
         </div>
     </section>

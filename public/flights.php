@@ -11,7 +11,7 @@ $passengers = $_GET['passengers'] ?? 1;
 
 // Перевірка параметрів
 if (!$departure_id || !$arrival_id || !$date) {
-    header('Location: /public/search.php');
+    header('Location: ' . BASE_URL . '/search.php');
     exit;
 }
 
@@ -79,7 +79,7 @@ $flights = $stmt->fetchAll();
                 Дата: <?php echo date('d.m.Y', strtotime($date)); ?> | 
                 Пасажирів: <?php echo $passengers; ?>
             </p>
-            <a href="/public/search.php" class="btn btn-secondary" style="margin-top: 1rem;">Змінити параметри пошуку</a>
+            <a href="<?php echo BASE_URL; ?>/search.php" class="btn btn-secondary" style="margin-top: 1rem;">Змінити параметри пошуку</a>
         </div>
 
         <?php if (empty($flights)): ?>
@@ -126,7 +126,7 @@ $flights = $stmt->fetchAll();
                         <div class="flight-price">
                             <div class="price-amount"><?php echo number_format($total_price, 2); ?> ₴</div>
                             <div class="price-currency">за <?php echo $passengers; ?> пас.</div>
-                            <form method="POST" action="/public/select-flight.php" style="margin-top: 1rem;">
+                            <form method="POST" action="<?php echo BASE_URL; ?>/select-flight.php" style="margin-top: 1rem;">
                                 <input type="hidden" name="flight_id" value="<?php echo $flight['flight_id']; ?>">
                                 <button type="submit" class="btn btn-primary">Обрати</button>
                             </form>

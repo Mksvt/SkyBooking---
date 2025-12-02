@@ -2,10 +2,11 @@
 require_once '../includes/config.php';
 requireLogin();
 
-$booking_id = $_GET['booking_id'] ?? null;
+$booking_id = isset($_GET['booking_id']) ? intval($_GET['booking_id']) : null;
 
 if (!$booking_id) {
-    header('Location: /public/index.php');
+    $_SESSION['error_message'] = 'Некоректний ID бронювання. ID не передано в URL.';
+    header('Location: ' . BASE_URL . '/my-bookings.php');
     exit;
 }
 
@@ -39,7 +40,16 @@ $stmt->execute([$booking_id, $_SESSION['customer_id']]);
 $booking = $stmt->fetch();
 
 if (!$booking) {
-    header('Location: /public/index.php');
+    $_SESSION['error_message'] = 'Бронювання #' . $booking_id . ' не знайдено або у вас немає до нього доступу.';
+    header('Location: ' . BASE_URL . '/my-bookings.php');
+    exit;
+}
+
+// Якщо бронювання ще не оплачено, перенаправляємо на оплату
+if ($booking['payment_status'] !== 'paid') {
+    $_SESSION['current_booking_id'] = $booking_id;
+    $_SESSION['error_message'] = 'Це бронювання ще не оплачено. Будь ласка, завершіть оплату.';
+    header('Location: ' . BASE_URL . '/payment.php');
     exit;
 }
 
@@ -150,10 +160,19 @@ if (isset($_SESSION['current_booking_id'])) {
                     <h3 style="margin-bottom: 1rem;">QR-код для посадки</h3>
                     <div class="qr-code">
                         <?php
-                        // Генеруємо простий QR-код через Google Charts API (працює без JS)
-                        $qr_url = "https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl=" . urlencode($qr_data);
+                        // Використовуємо API QuickChart для генерації QR-коду
+                        $qr_url = "https://quickchart.io/qr?text=" . urlencode($qr_data) . "&size=250";
                         ?>
-                        <img src="<?php echo $qr_url; ?>" alt="QR Code" style="width: 100%; height: 100%;">
+                        <img src="<?php echo htmlspecialchars($qr_url); ?>" 
+                             alt="QR Code" 
+                             style="width: 100%; height: 100%; object-fit: contain;"
+                             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <div style="display: none; padding: 20px; background: #f5f5f5; text-align: center; border-radius: 8px;">
+                            <strong>Код бронювання:</strong><br>
+                            <span style="font-size: 1.5rem; font-family: monospace; font-weight: bold;">
+                                <?php echo str_pad($booking['booking_id'], 6, '0', STR_PAD_LEFT); ?>
+                            </span>
+                        </div>
                     </div>
                     <div class="qr-instructions">
                         Покажіть цей QR-код під час реєстрації на рейс та посадки
@@ -171,8 +190,8 @@ if (isset($_SESSION['current_booking_id'])) {
                 </div>
 
                 <div style="margin-top: 2rem; text-align: center; display: flex; gap: 1rem; justify-content: center;">
-                    <a href="/public/my-bookings.php" class="btn btn-secondary">Мої бронювання</a>
-                    <a href="/public/index.php" class="btn btn-primary">На головну</a>
+                    <a href="<?php echo BASE_URL; ?>/my-bookings.php" class="btn btn-secondary">Мої бронювання</a>
+                    <a href="<?php echo BASE_URL; ?>/index.php" class="btn btn-primary">На головну</a>
                     <button onclick="window.print()" class="btn btn-success">🖨️ Роздрукувати</button>
                 </div>
             </div>

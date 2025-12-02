@@ -1,0 +1,24 @@
+[2025-12-02 22:42:38] IP: ::1 - Registration error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'nationality' in 'field list'
+[2025-12-02 22:42:48] IP: ::1 - Registration error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'nationality' in 'field list'
+[2025-12-02 22:43:14] IP: ::1 - Registration error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'nationality' in 'field list'
+[2025-12-02 22:43:29] IP: ::1 - Rate limit exceeded for action: register
+[2025-12-02 22:45:49] IP: ::1 - Rate limit exceeded for action: register
+[2025-12-02 22:47:11] IP: ::1 - Failed login attempt for email: test@test.com
+[2025-12-02 22:47:23] IP: ::1 - Failed login attempt for email: test@test.com
+[2025-12-02 22:49:34] IP: ::1 - Successful login for customer_id: 4
+[2025-12-02 22:58:10] IP: ::1 - invalid_passport
+[2025-12-02 23:00:18] IP: ::1 - payment_booking_id_mismatch
+[2025-12-02 23:03:11] IP: ::1 - payment_booking_id_mismatch
+[2025-12-02 23:03:32] IP: ::1 - payment_booking_id_mismatch
+[2025-12-02 23:03:47] IP: ::1 - payment_booking_id_mismatch
+[2025-12-02 23:03:52] IP: ::1 - payment_booking_id_mismatch
+[2025-12-02 23:04:17] IP: ::1 - payment_booking_id_mismatch
+[2025-12-02 23:05:18] IP: ::1 - payment_booking_id_mismatch
+[2025-12-02 23:05:25] IP: ::1 - payment_booking_id_mismatch
+[2025-12-02 23:05:41] IP: ::1 - payment_booking_id_mismatch
+[2025-12-02 23:06:18] IP: ::1 - Successful login for customer_id: 4
+[2025-12-02 23:08:22] IP: ::1 - payment_booking_id_mismatch
+[2025-12-02 23:08:34] IP: ::1 - payment_booking_id_mismatch
+[2025-12-02 23:09:01] IP: ::1 - payment_booking_id_mismatch
+[2025-12-02 23:13:03] IP: ::1 - payment_booking_id_mismatch
+[2025-12-02 23:13:12] IP: ::1 - payment_booking_id_mismatch

@@ -2,7 +2,7 @@
 require_once '../includes/config.php';
 
 if (isLoggedIn()) {
-    header('Location: /public/index.php');
+    header('Location: ' . BASE_URL . '/index.php');
     exit;
 }
 
@@ -90,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         unset($_SESSION['redirect_after_login']);
                         header("Location: $redirect");
                     } else {
-                        header('Location: /public/index.php');
+                        header('Location: ' . BASE_URL . '/index.php');
                     }
                     exit;
                 } catch (PDOException $e) {
@@ -219,7 +219,7 @@ require_once '../includes/header.php';
             </noscript>
             
             <p style="text-align: center; margin-top: 1.5rem; color: var(--gray-text);">
-                Вже маєте акаунт? <a href="/public/login.php" style="color: var(--primary-color); font-weight: 600;">Увійти</a>
+                Вже маєте акаунт? <a href="<?php echo BASE_URL; ?>/login.php" style="color: var(--primary-color); font-weight: 600;">Увійти</a>
             </p>
         </div>
     </section>

@@ -4,7 +4,7 @@ requireLogin();
 
 if (!isset($_SESSION['selected_flight_id']) || !isset($_SESSION['selected_seats']) || 
     !isset($_SESSION['passengers_data']) || !isset($_SESSION['search'])) {
-    header('Location: /public/search.php');
+    header('Location: ' . BASE_URL . '/search.php');
     exit;
 }
 
@@ -137,7 +137,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm_booking'])) {
         unset($_SESSION['passengers_data']);
         unset($_SESSION['search']);
         
-        header('Location: /public/payment.php');
+        header('Location: ' . BASE_URL . '/payment.php');
         exit;
         
         } catch (PDOException $e) {
@@ -246,7 +246,7 @@ require_once '../includes/header.php';
             </div>
             
             <div style="display: flex; gap: 1rem; justify-content: center;">
-                <a href="/public/passengers.php" class="btn btn-secondary">Назад</a>
+                <a href="<?php echo BASE_URL; ?>/passengers.php" class="btn btn-secondary">Назад</a>
                 <button type="submit" name="confirm_booking" class="btn btn-success" id="bookingBtn" disabled>
                     Підтвердити бронювання
                 </button>

@@ -2,13 +2,18 @@
 require_once '../includes/config.php';
 requireLogin();
 
-if (!isset($_SESSION['current_booking_id'])) {
-    header('Location: /public/index.php');
+// Приймаємо booking_id з GET параметра або сесії
+if (isset($_GET['booking_id'])) {
+    $booking_id = intval($_GET['booking_id']);
+    $_SESSION['current_booking_id'] = $booking_id;
+} elseif (isset($_SESSION['current_booking_id'])) {
+    $booking_id = $_SESSION['current_booking_id'];
+} else {
+    header('Location: ' . BASE_URL . '/index.php');
     exit;
 }
 
 $page_title = 'Оплата - SkyBooking';
-$booking_id = $_SESSION['current_booking_id'];
 
 // Отримуємо інформацію про бронювання
 $stmt = $pdo->prepare("
@@ -33,7 +38,7 @@ $stmt->execute([$booking_id, $_SESSION['customer_id']]);
 $booking = $stmt->fetch();
 
 if (!$booking) {
-    header('Location: /public/index.php');
+    header('Location: ' . BASE_URL . '/index.php');
     exit;
 }
 
@@ -110,7 +115,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['process_payment'])) {
             $pdo->commit();
             
             // Переходимо до квитків
-            header('Location: /public/ticket.php?booking_id=' . $booking_id);
+            header('Location: ' . BASE_URL . '/ticket.php?booking_id=' . $booking_id);
             exit;
             
         } catch (PDOException $e) {
@@ -126,6 +131,15 @@ require_once '../includes/header.php';
 <div class="container">
     <section class="section">
         <h1 class="section-title">Оплата бронювання</h1>
+        
+        <?php if (isset($_SESSION['error_message'])): ?>
+            <div class="alert alert-error">
+                <?php 
+                echo htmlspecialchars($_SESSION['error_message']); 
+                unset($_SESSION['error_message']);
+                ?>
+            </div>
+        <?php endif; ?>
         
         <?php if ($error): ?>
             <div class="alert alert-error"><?php echo htmlspecialchars($error); ?></div>

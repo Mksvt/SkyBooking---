@@ -3,7 +3,7 @@ require_once '../includes/config.php';
 requireLogin();
 
 if (!isset($_SESSION['selected_flight_id']) || !isset($_SESSION['selected_seats']) || !isset($_SESSION['search'])) {
-    header('Location: /public/search.php');
+    header('Location: ' . BASE_URL . '/search.php');
     exit;
 }
 
@@ -87,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['passengers_data'] = $passengers_data;
         
         // Переходимо до бронювання
-        header('Location: /public/booking.php');
+        header('Location: ' . BASE_URL . '/booking.php');
         exit;
     }
 }
