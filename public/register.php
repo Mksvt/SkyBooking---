@@ -52,9 +52,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $password_hash = password_hash($password, PASSWORD_DEFAULT);
                 
                 try {
-                    // Додаємо колонку password_hash, якщо її немає
-                    $pdo->exec("ALTER TABLE customers ADD COLUMN IF NOT EXISTS password_hash VARCHAR(255)");
-                    
                     // Параметризований запит для захисту від SQL-ін'єкцій
                     $stmt = $pdo->prepare("
                         INSERT INTO customers (first_name, last_name, email, phone, date_of_birth, nationality, password_hash)

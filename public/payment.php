@@ -54,8 +54,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['process_payment'])) {
     
     // Валідація прихованого поля booking_id (захист від IDOR)
     $posted_booking_id = intval($_POST['booking_id'] ?? 0);
+    $booking_id = intval($booking_id); // Приводимо до int для порівняння
     if ($posted_booking_id !== $booking_id) {
-        $error = 'Некоректний ID бронювання.';
+        $error = 'Некоректний ID бронювання. (Posted: ' . $posted_booking_id . ', Expected: ' . $booking_id . ')';
         logSecurityEvent('payment_booking_id_mismatch', $_SESSION['customer_id']);
     }
     
@@ -126,20 +127,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['process_payment'])) {
 }
 
 require_once '../includes/header.php';
+
+// Очищаємо повідомлення про помилку з інших сторінок
+if (isset($_SESSION['error_message'])) {
+    unset($_SESSION['error_message']);
+}
 ?>
 
 <div class="container">
     <section class="section">
         <h1 class="section-title">Оплата бронювання</h1>
-        
-        <?php if (isset($_SESSION['error_message'])): ?>
-            <div class="alert alert-error">
-                <?php 
-                echo htmlspecialchars($_SESSION['error_message']); 
-                unset($_SESSION['error_message']);
-                ?>
-            </div>
-        <?php endif; ?>
         
         <?php if ($error): ?>
             <div class="alert alert-error"><?php echo htmlspecialchars($error); ?></div>

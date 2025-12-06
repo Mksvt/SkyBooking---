@@ -22,3 +22,13 @@
 [2025-12-02 23:09:01] IP: ::1 - payment_booking_id_mismatch
 [2025-12-02 23:13:03] IP: ::1 - payment_booking_id_mismatch
 [2025-12-02 23:13:12] IP: ::1 - payment_booking_id_mismatch
+[2025-12-06 11:10:28] IP: ::1 - Registration error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'nationality' in 'field list'
+[2025-12-06 11:10:44] IP: ::1 - Registration error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'nationality' in 'field list'
+[2025-12-06 11:13:19] IP: ::1 - New user registered: customer_id=5
+[2025-12-06 11:14:19] IP: ::1 - invalid_passport
+[2025-12-06 11:14:35] IP: ::1 - invalid_passport
+[2025-12-06 11:15:56] IP: ::1 - payment_booking_id_mismatch
+[2025-12-06 11:16:52] IP: ::1 - New user registered: customer_id=6
+[2025-12-06 11:17:40] IP: ::1 - New user registered: customer_id=7
+[2025-12-06 11:23:41] IP: ::1 - payment_booking_id_mismatch
+[2025-12-06 11:33:24] IP: ::1 - payment_booking_id_mismatch
