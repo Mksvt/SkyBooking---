@@ -243,4 +243,34 @@ function validateIdArray($array, $min = 1, $max = 100) {
     
     return true;
 }
+
+/**
+ * Перевірка чи користувач є адміністратором
+ * Дозволяємо доступ якщо:
+ * - в сесії `customer_email` === 'admin@admin.com'
+ * - або в таблиці customers є колонка `is_admin` = 1 для поточного user
+ */
+function isAdmin() {
+    if (isset($_SESSION['customer_email']) && $_SESSION['customer_email'] === 'admin@admin.com') {
+        return true;
+    }
+
+    if (!isset($_SESSION['customer_id'])) {
+        return false;
+    }
+
+    global $pdo;
+    try {
+        $stmt = $pdo->prepare("SELECT is_admin FROM customers WHERE customer_id = ? LIMIT 1");
+        $stmt->execute([$_SESSION['customer_id']]);
+        $row = $stmt->fetch();
+        if ($row && isset($row['is_admin']) && intval($row['is_admin']) === 1) {
+            return true;
+        }
+    } catch (Exception $e) {
+        // не фатальна помилка
+    }
+
+    return false;
+}
 ?>

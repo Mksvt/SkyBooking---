@@ -13,7 +13,7 @@ $_SESSION['selected_flight_id'] = $flight_id;
 
 // Перевірка авторизації
 if (!isLoggedIn()) {
-    $_SESSION['redirect_after_login'] = '/public/seats.php';
+    $_SESSION['redirect_after_login'] = BASE_URL . '/seats.php';
     header('Location: ' . BASE_URL . '/login.php');
     exit;
 }

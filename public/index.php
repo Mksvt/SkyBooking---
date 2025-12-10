@@ -8,7 +8,10 @@ require_once '../includes/header.php';
     <div class="container">
         <h1>✈️ Бронюйте авіаквитки легко та швидко</h1>
         <p>Ваша подорож починається тут. Знайдіть найкращі рейси за найвигіднішими цінами</p>
-        <a href="<?php echo BASE_URL; ?>/search.php" class="btn btn-primary">Знайти рейс</a>
+        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 1.5rem;">
+            <a href="<?php echo BASE_URL; ?>/search.php" class="btn btn-primary">Знайти рейс</a>
+            <a href="<?php echo BASE_URL; ?>/flight-map.php" class="btn" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);">🌍 Карта рейсів</a>
+        </div>
     </div>
 </section>
 

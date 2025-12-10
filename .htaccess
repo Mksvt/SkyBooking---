@@ -7,4 +7,4 @@ RewriteRule ^$ public/index.php [L]
 # Redirect everything else to public folder if not a file or directory
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ public/$1 [L]
+RewriteRule ^(.*)$ public/$1 [L]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               

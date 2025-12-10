@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo isset($page_title) ? $page_title : 'SkyBooking - Бронювання авіаквитків'; ?></title>
-    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/css/style.css">
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/css/style.css?v=<?php echo time(); ?>">
 </head>
 <body>
     <header class="header">
@@ -14,8 +14,12 @@
                 <ul class="nav-menu">
                     <li><a href="<?php echo BASE_URL; ?>/index.php">Головна</a></li>
                     <li><a href="<?php echo BASE_URL; ?>/search.php">Пошук рейсів</a></li>
+                    <li><a href="<?php echo BASE_URL; ?>/flight-map.php">🌍 Карта</a></li>
                     <?php if (isLoggedIn()): ?>
                         <li><a href="<?php echo BASE_URL; ?>/my-bookings.php">Мої бронювання</a></li>
+                        <?php if (function_exists('isAdmin') && isAdmin()): ?>
+                            <li><a href="<?php echo BASE_URL; ?>/admin.php" class="btn btn-admin">Адмін-панель</a></li>
+                        <?php endif; ?>
                         <li><a href="<?php echo BASE_URL; ?>/logout.php">Вихід</a></li>
                     <?php else: ?>
                         <li><a href="<?php echo BASE_URL; ?>/login.php">Вхід</a></li>

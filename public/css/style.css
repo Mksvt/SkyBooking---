@@ -61,6 +61,7 @@ body {
   display: flex;
   list-style: none;
   gap: 2rem;
+  align-items: center;
 }
 
 .nav-menu a {
@@ -68,6 +69,7 @@ body {
   text-decoration: none;
   font-weight: 500;
   transition: opacity 0.3s;
+  display: inline-block;
 }
 
 .nav-menu a:hover {
@@ -717,4 +719,227 @@ select.form-control {
   100% {
     transform: rotate(360deg);
   }
+}
+
+/* Адмін-панель */
+.btn-admin {
+  position: relative;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  color: white !important;
+  padding: 0.5rem 1.2rem !important;
+  border-radius: 6px !important;
+  font-weight: 600 !important;
+  font-size: 1rem !important;
+  letter-spacing: 0.3px !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3) !important;
+  text-decoration: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.4rem !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.4) !important;
+  line-height: 1;
+}
+
+.btn-admin::before {
+  content: '👑';
+  font-size: 1rem;
+}
+
+.btn-admin:hover {
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.5) !important;
+  opacity: 1 !important;
+  border-color: rgba(255, 255, 255, 0.6) !important;
+}
+
+.btn-admin:active {
+  transform: translateY(0) !important;
+}
+
+.admin-panel {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  margin-bottom: 2rem;
+}
+
+.admin-tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  padding: 1rem;
+  background: var(--light-bg);
+  border-radius: 8px;
+}
+
+.admin-tabs a {
+  padding: 0.75rem 1.5rem;
+  background: white;
+  color: var(--dark-text);
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.admin-tabs a:hover {
+  background: var(--primary-color);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+.admin-tabs a.active {
+  background: var(--primary-color);
+  color: white;
+  border-color: var(--secondary-color);
+}
+
+.admin-filters {
+  background: var(--light-bg);
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+}
+
+.admin-filters label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--gray-text);
+  margin-bottom: 0.25rem;
+}
+
+.admin-filters input,
+.admin-filters select {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-size: 0.9rem;
+  transition: border-color 0.3s ease;
+}
+
+.admin-filters input:focus,
+.admin-filters select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.admin-table-wrapper {
+  overflow-x: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  font-size: 0.9rem;
+}
+
+.admin-table thead {
+  background: linear-gradient(
+    135deg,
+    var(--primary-color),
+    var(--secondary-color)
+  );
+  color: white;
+}
+
+.admin-table th {
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.admin-table td {
+  padding: 0.875rem 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.admin-table tbody tr {
+  transition: background-color 0.2s ease;
+}
+
+.admin-table tbody tr:hover {
+  background-color: var(--light-bg);
+}
+
+.admin-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.admin-actions a {
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.admin-actions a:first-child {
+  background: var(--primary-color);
+  color: white;
+}
+
+.admin-actions a:first-child:hover {
+  background: var(--secondary-color);
+  transform: scale(1.05);
+}
+
+.admin-actions a:last-child {
+  background: var(--danger-color);
+  color: white;
+}
+
+.admin-actions a:last-child:hover {
+  background: #dc2626;
+  transform: scale(1.05);
+}
+
+.btn-success {
+  background: var(--success-color);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn-success:hover {
+  background: #059669;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.btn-danger {
+  background: var(--danger-color);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-danger:hover {
+  background: #dc2626;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
 }
